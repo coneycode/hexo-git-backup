@@ -1,0 +1,29 @@
+{
+  "name": "hexo-git-backup",
+  "version": "0.0.2",
+  "description": "hexo backup plugin for Hexo,backup to github",
+  "main": "index",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/coneycode/hexo-git-backup.git"
+  },
+  "bugs": {
+    "url": "https://github.com/coneycode/hexo-git-backup/issues"
+  },
+  "keywords": [
+    "hexo",
+    "backup"
+  ],
+  "scripts": {
+          "test": "echo \"Error: no test specified\" && exit 1"
+            },
+  "author": "Coney Geng <coneylife@gmail.com> (http://gengbiao.me)",
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/coneycode/hexo-auto-backup/LICENSE"
+  },
+  "dependencies": {
+     "debug": "^2.0.0",
+     "execSync": "^1.0.2"
+  }
+}
