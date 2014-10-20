@@ -7,14 +7,14 @@ module.exports = function(args, callback){
   var config = hexo.config.backup,
     log = hexo.log,
     extend = hexo.extend,
-    deployers = extend.deployer.list();
+    backupers = extend.deployer.list();
 
   if (!config){
     var help = '';
 
-    help += 'You should configure deployment settings in _config.yml first!\n\n';
+    help += 'You should configure backupment settings in _config.yml first!\n\n';
     help += 'Available Types:\n';
-    help += '  ' + Object.keys(deployers).join(', ') + '\n\n';
+    help += '  ' + Object.keys(backupers).join(', ') + '\n\n';
     help += 'For more help, you can check the online docs: ' + 'http://hexo.io/'.underline;
 
     console.log(help);
@@ -24,49 +24,33 @@ module.exports = function(args, callback){
 
   if (!Array.isArray(config)) config = [config];
 
-  var generate = function(callback){
-    if (args.g || args.generate){
-      hexo.call('generate', callback);
-    } else {
-      fs.exists(hexo.public_dir, function(exist){
-        if (exist) return callback();
-
-        hexo.call('generate', callback);
-      });
-    }
-  };
-
-  var onDeployStarted = function() {
+  var onBackupStarted = function() {
     /**
-    * Fired before deployment.
+    * Fired before backupment.
     *
-    * @event deployBefore
+    * @event backupBefore
     * @for Hexo
     */
-    hexo.emit('deployBefore');
+    hexo.emit('backupBefore');
   };
 
-  var onDeployFinished = function(err) {
+  var onBackupFinished = function(err) {
     /**
-    * Fired after deployment.
+    * Fired after backupment.
     *
-    * @event deployAfter
+    * @event backupAfter
     * @param {Error} err
     * @for Hexo
     */
-    hexo.emit('deployAfter', err);
+    hexo.emit('backupAfter', err);
     callback(err);
   };
-
-  generate(function(err){
-    if (err) return callback(err);
-
-    onDeployStarted();
+    onBackupStarted();
 
     async.eachSeries(config, function(item, next){
       var type = item.type;
 
-      if (!deployers.hasOwnProperty(type)){
+      if (!backupers.hasOwnProperty(type)){
         log.e('backuper not found: ' + type);
         return next();
       } else {
@@ -79,6 +63,5 @@ module.exports = function(args, callback){
         log.i('Backup done: ' + type);
         next();
       });
-    }, onDeployFinished);
-  });
+    }, onBackupFinished);
 };

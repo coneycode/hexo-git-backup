@@ -76,7 +76,7 @@ module.exports = function(args, callback){
         for (var t in repo){
           commands.push(['remote', 'add', t, '-t', repo[t].branch, repo[t].url]);
         }
-        file.writeFile(path.join(deployDir, 'placeholder'), '', function(err){
+        file.writeFile(deployDir, '', function(err){
           if (err) callback(err);
           async.eachSeries(commands, function(item, next){
             run('git', item, function(code){
