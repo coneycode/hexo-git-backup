@@ -22,6 +22,8 @@ You can configure this plugin in `_config.yml`.
 
 ``` yaml
 backup:
-    branch: 
+    type: git
     repository:
+       github: git@github.com:xxx/xxx.git,branchName
+       gitcafe: git@github.com:xxx/xxx.git,branchName
 ```
