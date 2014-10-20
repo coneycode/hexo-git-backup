@@ -27,3 +27,19 @@ backup:
        github: git@github.com:xxx/xxx.git,branchName
        gitcafe: git@github.com:xxx/xxx.git,branchName
 ```
+
+## Problems
+
+You may get some troubles by your computer' permission。
+
+###Error: EISDIR, open
+just do 'hexo d' before you 'hexo b' 
+```
+hexo d  
+hexo b
+```
+###Could not read from remote repository.
+```
+git remote add github git@github.com:xxx/xxx.git
+
+```
