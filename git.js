@@ -1,9 +1,8 @@
 var async = require('async'),
   fs = require('fs'),
   path = require('path'),
-  moment = require('moment'),
   spawn = require('child_process').spawn,
-  file = hexo.util.file2,
+  file = require('./file'),
   commitMessage = require('./util').commitMessage;
 
 module.exports = function(args, callback){
@@ -33,16 +32,11 @@ module.exports = function(args, callback){
 
   var repo = args.repo || args.repository;
 
-
-  hexo.log.i('repo: ' + repo);
-
   for (var t in repo){
     var s = repo[t].split(',');
     repo[t] = {};
     repo[t].url = s[0];
     repo[t].branch = s.length > 1 ? s[1] : 'master';
-    hexo.log.i('repo: ' + repo[t].url);
-    hexo.log.i('repo: ' + repo[t].branch);
   }
 
   var run = function(command, args, callback){
