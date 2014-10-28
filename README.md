@@ -39,7 +39,8 @@ backup:
        github: git@github.com:xxx/xxx.git,branchName
        gitcafe: git@github.com:xxx/xxx.git,branchName
 ```
-**if you do as above, the dir `themes/coney/.git`will be remove**
+**Attention: if you do as above, the dir `themes/coney/.git`will be remove**
+
 Now you can backup all the blog!
 ## Problems
 
