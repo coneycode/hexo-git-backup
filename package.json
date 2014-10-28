@@ -1,6 +1,6 @@
 {
   "name": "hexo-git-backup",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "hexo backup plugin for Hexo,backup to github",
   "main": "index",
   "repository": {

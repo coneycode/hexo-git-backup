@@ -31,7 +31,6 @@ module.exports = function(args, callback){
   }
 
   var repo = args.repo || args.repository;
-
   for (var t in repo){
     var s = repo[t].split(',');
     repo[t] = {};
@@ -58,10 +57,31 @@ module.exports = function(args, callback){
     function(next){
       fs.exists(gitDir, function(exist){
         if (exist && !args.setup) return next();
-
         hexo.log.i('Setting up Git deployment...');
 
         var commands = [['init']];
+        if(args.theme){
+            hexo.log.i(args.theme);
+             var themeGitDir = path.join(baseDir,'themes/' + args.theme + '/.git');
+             var themeDir = path.join(baseDir,'themes/' + args.theme);
+             fs.exists(themeGitDir,function(exist){
+                 if(exist){
+                        var child = spawn('rm', ['-rf', '.git'],{cwd: themeDir});
+                        hexo.log.i(themeGitDir);
+                        child.stdout.setEncoding('utf8');
+                        child.stdout.on('data', function(data) {
+                                hexo.log.i(data);
+                            });
+                        child.stderr.on('data', function (data) {
+                              hexo.log.i('stderr: ' + data);
+                        });
+
+                        child.on('close', function (code) {
+                              hexo.log.i('child process exited with code ' + code);
+                        });
+                        }
+                })
+            }
         if (args.master && repo[args.master]){
           var master = repo[args.master];
           hexo.log.i('fetch from ['+ args.master.green + ']:', master.url.cyan);
@@ -76,16 +96,17 @@ module.exports = function(args, callback){
         for (var t in repo){
           commands.push(['remote', 'add', t, '-t', repo[t].branch, repo[t].url]);
         }
-        file.writeFile(deployDir, '', function(err){
-          if (err) callback(err);
+        //file.writeFile(deployDir, 'placeHolder', function(err){
+         // if (err) callback(err);
           async.eachSeries(commands, function(item, next){
             run('git', item, function(code){
+                hexo.log.i(item);
               if (code === 0) next();
             });
           }, function(){
             if (!args.setup) next();
           });
-        });
+       // });
       });
     },
 
@@ -105,6 +126,7 @@ module.exports = function(args, callback){
 
       async.eachSeries(commands, function(item, next){
         run('git', item, function(){
+            hexo.log.i(item);
           next();
         });
       }, next);
