@@ -16,9 +16,9 @@ $ npm remove hexo-git-backup
 $ npm install hexo-git-backup --save
 ```
 
-## Options
+## Configure
 
-You can configure this plugin in `_config.yml`.
+You should configure this plugin in `_config.yml`.
 
 ``` yaml
 backup:
@@ -27,19 +27,27 @@ backup:
        github: git@github.com:xxx/xxx.git,branchName
        gitcafe: git@github.com:xxx/xxx.git,branchName
 ```
+## Options
 
+if you want to back up with your theme,just add `theme: your theme name` in `_config.yml`.
+
+``` yaml
+backup:
+    type: git
+    theme: coney
+    repository:
+       github: git@github.com:xxx/xxx.git,branchName
+       gitcafe: git@github.com:xxx/xxx.git,branchName
+```
+**if you do as above, the dir `themes/coney/.git`will be remove**
+Now you can backup all the blog!
 ## Problems
 
 You may get some troubles by your computer' permission。
 
 ###Error: EISDIR, open
-just do 'hexo d' before you 'hexo b' 
+it is caused by permission.
+just do 'sudo hexo b' 
 ```
-hexo d  
-hexo b
-```
-###Could not read from remote repository.
-```
-git remote add github git@github.com:xxx/xxx.git
-
+sudo hexo b
 ```
