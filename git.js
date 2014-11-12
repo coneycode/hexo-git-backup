@@ -57,11 +57,10 @@ module.exports = function(args, callback){
     function(next){
       fs.exists(gitDir, function(exist){
         if (exist && !args.setup) return next();
-        hexo.log.i('Setting up Git deployment...');
+        hexo.log.i('Setting up Git-Backup deployment...');
 
         var commands = [['init']];
         if(args.theme){
-            hexo.log.i(args.theme);
              var themeGitDir = path.join(baseDir,'themes/' + args.theme + '/.git');
              var themeDir = path.join(baseDir,'themes/' + args.theme);
              fs.exists(themeGitDir,function(exist){
@@ -100,7 +99,6 @@ module.exports = function(args, callback){
          // if (err) callback(err);
           async.eachSeries(commands, function(item, next){
             run('git', item, function(code){
-                hexo.log.i(item);
               if (code === 0) next();
             });
           }, function(){
@@ -126,7 +124,6 @@ module.exports = function(args, callback){
 
       async.eachSeries(commands, function(item, next){
         run('git', item, function(){
-            hexo.log.i(item);
           next();
         });
       }, next);
