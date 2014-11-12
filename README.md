@@ -27,6 +27,15 @@ backup:
        github: git@github.com:xxx/xxx.git,branchName
        gitcafe: git@github.com:xxx/xxx.git,branchName
 ```
+
+## Using
+```
+hexo backup 
+```
+or 
+```
+hexo b
+```
 ## Options
 
 if you want to back up with your theme,just add `theme: your theme name` in `_config.yml`.
