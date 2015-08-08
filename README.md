@@ -2,15 +2,23 @@
 
 git-backup.
 
-## Install
+##Install
+if your hexo version is 2.x.x, you should install as follow:
 
-``` bash
+`` bash
+$ npm install hexo-git-backup@0.0.91 --save
+``
+
+if version is 3.x.x, you should install as follow:
+
+`` bash
 $ npm install hexo-git-backup --save
-```
+``
 
 ## Update
 
 if you install with --save, you must remove firstly when you update it.
+
 ``` bash
 $ npm remove hexo-git-backup
 $ npm install hexo-git-backup --save
@@ -28,40 +36,38 @@ backup:
        gitcafe: git@github.com:xxx/xxx.git,branchName
 ```
 
-##Install
-if your hexo version is 2.x.x, you should install as follow:
-
-`` bash
-$ npm install hexo-git-backup@0.0.91 --save
-``
-
-if version is 3.x.x, you should install as follow:
-
-`` bash
-$ npm install hexo-git-backup --save
-``
-
 ## Using
 ```
 hexo backup 
 ```
-or(just available under hexo@2.8.3) 
+or
 ```
 hexo b
 ```
 ## Options
 
-if you want to back up with your theme,just add `theme: your theme name` in `_config.yml`.
+if you want to back up with your theme,just add `theme: your theme name,your theme name` in `_config.yml`.
 
 ``` yaml
 backup:
     type: git
-    theme: coney
+    theme: coney,landscape,xxx
     repository:
        github: git@github.com:xxx/xxx.git,branchName
        gitcafe: git@github.com:xxx/xxx.git,branchName
 ```
 **Attention: if you do as above, the dir `themes/coney/.git`will be removed**
+
+if you want DIY commit message, just add 'message: update xxx'.
+``` yaml
+backup:
+    type: git
+    message: update xxx
+    repository:
+       github: git@github.com:xxx/xxx.git,branchName
+       gitcafe: git@github.com:xxx/xxx.git,branchName
+```
+
 
 Now you can backup all the blog!
 ## Problems
