@@ -5,15 +5,15 @@ git-backup.
 ##Install
 if your hexo version is 2.x.x, you should install as follow:
 
-`` bash
+``` bash
 $ npm install hexo-git-backup@0.0.91 --save
-``
+```
 
 if version is 3.x.x, you should install as follow:
 
-`` bash
+``` bash
 $ npm install hexo-git-backup --save
-``
+```
 
 ## Update
 
