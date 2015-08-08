@@ -1,14 +1,13 @@
 var async = require('async'),
-var hexo = require('hexo');
   fs = require('graceful-fs'),
   _ = require('lodash');
   git = require('./git');
 
 module.exports = function(args, callback){
-  var config = hexo.config.backup,
-    log = hexo.log,
-    extend = hexo.extend,
-    backupers = extend.deployer.list();
+  var config = this.config.backup,
+    log = this.log,
+    backupers = this.extend.deployer.list(),
+    self = this;
 
   if (!config){
     var help = '';
@@ -32,7 +31,7 @@ module.exports = function(args, callback){
     * @event backupBefore
     * @for Hexo
     */
-    hexo.emit('backupBefore');
+    self.emit('backupBefore');
   };
 
   var onBackupFinished = function(err) {
@@ -43,22 +42,23 @@ module.exports = function(args, callback){
     * @param {Error} err
     * @for Hexo
     */
-    hexo.emit('backupAfter', err);
+    self.emit('backupAfter', err);
     callback(err);
   };
     onBackupStarted();
-
+    // console.log(item);
+    // console.log(args);
     async.eachSeries(config, function(item, next){
       var type = item.type;
 
-      if (!backupers.hasOwnProperty(type)){
+      if (type != "git"){
         log.e('backuper not found: ' + type);
-        return next();
+        // return next();
       } else {
         log.i('Start backup: ' + type);
       }
 
-      git(_.extend({}, item, args), function(err){
+      git(_.extend({}, item, args), self,function(err){
         if (err) return next(err);
 
         log.i('Backup done: ' + type);

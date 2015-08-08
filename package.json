@@ -1,11 +1,11 @@
 {
   "name": "hexo-git-backup",
-  "version": "0.0.92",
+  "version": "0.1.0",
   "description": "hexo backup plugin for Hexo,backup to github",
   "main": "index",
   "repository": {
     "type": "git",
-    "url": "https://github.com/coneycode/hexo-git-backup.git"
+    "url": "git+https://github.com/coneycode/hexo-git-backup.git"
   },
   "bugs": {
     "url": "https://github.com/coneycode/hexo-git-backup/issues"
@@ -15,9 +15,13 @@
     "backup"
   ],
   "scripts": {
-          "test": "echo \"Error: no test specified\" && exit 1"
-            },
-  "author": "Coney Geng <coneylife@gmail.com> (http://gengbiao.me)",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "Coney Geng",
+    "email": "coneylife@gmail.com",
+    "url": "http://gengbiao.me"
+  },
   "license": {
     "type": "MIT",
     "url": "https://github.com/coneycode/hexo-auto-backup/LICENSE"
@@ -29,5 +33,12 @@
     "lodash": "^2.4.1",
     "moment": "^2.8.1",
     "swig": "1.4.1"
-  }
+  },
+  "readme": "# git-backup\n\ngit-backup.\n\n## Install\n\n``` bash\n$ npm install hexo-git-backup --save\n```\n\n## Update\n\nif you install with --save, you must remove firstly when you update it.\n``` bash\n$ npm remove hexo-git-backup\n$ npm install hexo-git-backup --save\n```\n\n## Configure\n\nYou should configure this plugin in `_config.yml`.\n\n``` yaml\nbackup:\n    type: git\n    repository:\n       github: git@github.com:xxx/xxx.git,branchName\n       gitcafe: git@github.com:xxx/xxx.git,branchName\n```\n\n## Using\n```\nhexo backup \n```\nor \n```\nhexo b\n```\n## Options\n\nif you want to back up with your theme,just add `theme: your theme name` in `_config.yml`.\n\n``` yaml\nbackup:\n    type: git\n    theme: coney\n    repository:\n       github: git@github.com:xxx/xxx.git,branchName\n       gitcafe: git@github.com:xxx/xxx.git,branchName\n```\n**Attention: if you do as above, the dir `themes/coney/.git`will be removed**\n\nNow you can backup all the blog!\n## Problems\n\nYou may get some troubles by your computer' permission。\n\n###Error: EISDIR, open\nit is caused by permission.\njust do 'sudo hexo b' \n```\nsudo hexo b\n```\n",
+  "readmeFilename": "README.md",
+  "gitHead": "0ed2d20bd42016af2911fd654d10f4544ed42f4a",
+  "homepage": "https://github.com/coneycode/hexo-git-backup#readme",
+  "_id": "hexo-git-backup@0.0.92",
+  "_shasum": "db2011100f62f2f8920f8996152384da07161fb4",
+  "_from": "hexo-git-backup@*"
 }

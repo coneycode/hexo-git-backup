@@ -5,14 +5,14 @@ var async = require('async'),
   file = require('./file'),
   commitMessage = require('./util').commitMessage;
 
-module.exports = function(args, callback){
-  var baseDir = args.deploy_dir || hexo.base_dir,
+module.exports = function(args, selfData, callback){
+  var self = selfData,
+    baseDir = self.base_dir,
     //deployDir = path.join(baseDir, '.deploy'),
     deployDir = baseDir,
     gitDir = path.join(baseDir, '.git'),
     themesDir = path.join(baseDir, 'themes'),
-    publicDir = hexo.public_dir;
-
+    publicDir = self.public_dir;
   if (!args.repo && !args.repository){
     var help = '';
 
@@ -37,7 +37,42 @@ module.exports = function(args, callback){
     repo[t].url = s[0];
     repo[t].branch = s.length > 1 ? s[1] : 'master';
   }
+  if(args.themes){
+    var themes = args.themes.split(',');
+  }else if(self.config.theme){
+    var themes = [self.config.theme];
+  }
+  var addThemes = function(commands){
+    if(themes){
+          for (var t in themes){
+              var themeName = themes[t];
+              var themeGitDir = path.join(baseDir,'themes/' + themeName+ '/.git');
+              var themeDir = path.join(baseDir,'themes/' + themeName);
+              // fs.existsSync(themeGitDir,function(exist){
+              if(fs.existsSync(themeGitDir)){
+                    var child = spawn('rm', ['-rf', '.git'],{cwd: themeDir});
+                    if(commands){
+                      var themeFiles = path.join(themeDir,"*");
+                      commands.push(['add', themeFiles]);
+                      console.log(commands);
+                    }
+                    self.log.i(themeGitDir);
+                    child.stdout.setEncoding('utf8');
+                    child.stdout.on('data', function(data) {
+                            self.log.i(data);
+                        });
+                    child.stderr.on('data', function (data) {
+                          self.log.i('stderr: ' + data);
+                    });
 
+                    child.on('close', function (code) {
+                          self.log.i('child process exited with code ' + code);
+                    });
+              }
+              // })
+          }
+    }
+  }
   var run = function(command, args, callback){
     var cp = spawn(command, args, {cwd: deployDir});
 
@@ -57,39 +92,18 @@ module.exports = function(args, callback){
     function(next){
       fs.exists(gitDir, function(exist){
         if (exist && !args.setup) return next();
-        hexo.log.i('Setting up Git-Backup deployment...');
-
+        self.log.i('Setting up Git-Backup deployment...');
         var commands = [['init']];
-        if(args.theme){
-             var themeGitDir = path.join(baseDir,'themes/' + args.theme + '/.git');
-             var themeDir = path.join(baseDir,'themes/' + args.theme);
-             fs.exists(themeGitDir,function(exist){
-                 if(exist){
-                        var child = spawn('rm', ['-rf', '.git'],{cwd: themeDir});
-                        hexo.log.i(themeGitDir);
-                        child.stdout.setEncoding('utf8');
-                        child.stdout.on('data', function(data) {
-                                hexo.log.i(data);
-                            });
-                        child.stderr.on('data', function (data) {
-                              hexo.log.i('stderr: ' + data);
-                        });
-
-                        child.on('close', function (code) {
-                              hexo.log.i('child process exited with code ' + code);
-                        });
-                        }
-                })
-            }
+        addThemes();
         if (args.master && repo[args.master]){
           var master = repo[args.master];
-          hexo.log.i('fetch from ['+ args.master.green + ']:', master.url.cyan);
+          self.log.i('fetch from ['+ args.master.green + ']:', master.url.cyan);
           commands.push(['remote', 'add', 'origin', '-t', master.branch, master.url]);
           commands.push(['pull']);
         } else {
           commands.push(['add', '-A', '.']);
           commands.push(['commit', '-m', 'First commit']);
-          hexo.log.i('First');
+          self.log.i('First');
         }
 
         for (var t in repo){
@@ -113,11 +127,9 @@ module.exports = function(args, callback){
       next();
     },
     function(next){
-      var commands = [
-        ['add', '-A'],
-        ['commit', '-m', commitMessage(args)],
-      ];
-
+      var commands = [['add', '-A']];
+      addThemes(commands);
+      commands.push(['commit', '-m', commitMessage(args)]);
       for (var t in repo){
         commands.push(['push', '-u', t, 'master:' + repo[t].branch, '--force']);
       }
