@@ -27,16 +27,20 @@ backup:
        github: git@github.com:xxx/xxx.git,branchName
        gitcafe: git@github.com:xxx/xxx.git,branchName
 ```
+
 ##Install
 if your hexo version is 2.x.x, you should install as follow:
+
 `` bash
 $ npm install hexo-git-backup@0.0.91 --save
 ``
+
 if version is 3.x.x, you should install as follow:
+
 `` bash
 $ npm install hexo-git-backup --save
 ``
-`
+
 ## Using
 ```
 hexo backup 
