@@ -1,4 +1,4 @@
-var console = hexo.extend.console;
+var console = hexo.extend.deployer;
 
 var backupOptions = {
   alias: 'b',
@@ -7,4 +7,4 @@ var backupOptions = {
   ]
 };
 
-console.register('backup', 'backup your website', backupOptions, require('./backup'));
+console.register('backup', require('./backup'));

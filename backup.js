@@ -1,4 +1,5 @@
 var async = require('async'),
+var hexo = require('hexo');
   fs = require('graceful-fs'),
   _ = require('lodash');
   git = require('./git');
