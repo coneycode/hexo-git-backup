@@ -2,7 +2,7 @@
 
 git-backup.
 
-##Install
+## Install
 if your hexo version is 2.x.x, you should install as follow:
 
 ``` bash
@@ -74,7 +74,7 @@ Now you can backup all the blog!
 
 You may get some troubles by your computer' permission。
 
-###Error: EISDIR, open
+### Error: EISDIR, open
 it is caused by permission.
 just do 'sudo hexo b' 
 ```
