@@ -1,6 +1,6 @@
 {
   "name": "hexo-git-backup",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "hexo backup plugin for Hexo,backup to github",
   "main": "index",
   "repository": {
@@ -29,7 +29,7 @@
   "dependencies": {
     "hexo": "^3.0.0",
     "async": "^0.9.0",
-    "graceful-fs": "^3.0.2",
+    "graceful-fs": "^4.0",
     "lodash": "^2.4.1",
     "moment": "^2.8.1",
     "swig": "1.4.1"
