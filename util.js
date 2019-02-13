@@ -1,4 +1,4 @@
-var swig = require('swig'),
+var swig = require('swig-templates'),
   moment = require('moment');
 
 var helpers = {
