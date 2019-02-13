@@ -32,7 +32,7 @@
     "graceful-fs": "^4.0",
     "lodash" : "^4.17.5",
     "moment": "^2.8.1",
-    "swig": "1.4.1"
+    "swig-templates": "^2.0.3"
   },
   "readme": "# git-backup\n\ngit-backup.\n\n## Install\n\n``` bash\n$ npm install hexo-git-backup --save\n```\n\n## Update\n\nif you install with --save, you must remove firstly when you update it.\n``` bash\n$ npm remove hexo-git-backup\n$ npm install hexo-git-backup --save\n```\n\n## Configure\n\nYou should configure this plugin in `_config.yml`.\n\n``` yaml\nbackup:\n    type: git\n    repository:\n       github: git@github.com:xxx/xxx.git,branchName\n       gitcafe: git@github.com:xxx/xxx.git,branchName\n```\n\n## Using\n```\nhexo backup \n```\nor \n```\nhexo b\n```\n## Options\n\nif you want to back up with your theme,just add `theme: your theme name` in `_config.yml`.\n\n``` yaml\nbackup:\n    type: git\n    theme: coney\n    repository:\n       github: git@github.com:xxx/xxx.git,branchName\n       gitcafe: git@github.com:xxx/xxx.git,branchName\n```\n**Attention: if you do as above, the dir `themes/coney/.git`will be removed**\n\nNow you can backup all the blog!\n## Problems\n\nYou may get some troubles by your computer' permission。\n\n###Error: EISDIR, open\nit is caused by permission.\njust do 'sudo hexo b' \n```\nsudo hexo b\n```\n",
   "readmeFilename": "README.md",
